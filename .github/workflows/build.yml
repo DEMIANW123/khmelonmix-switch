@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: devkitpro/devkita64:latest
+    container: flarn2006/devkitpro-switch:latest
     steps:
       - uses: actions/checkout@v4
 
@@ -18,12 +18,12 @@ jobs:
 
       - name: Instalar dependencias de devkitPro
         run: |
-          dkp-pacman -Sy --noconfirm --needed deko3d switch-glm switch-zlib switch-bzip2 switch-libjpeg-turbo switch-freetype switch-tools || true
+          dkp-pacman -S --noconfirm switch-lib_epoxy
 
       - name: Compilar
         run: |
           mkdir -p build && cd build
-          cmake -DCMAKE_TOOLCHAIN_FILE=$DEVKITPRO/cmake/Switch.cmake -DCMAKE_BUILD_TYPE=Release ..
+          cmake -DCMAKE_TOOLCHAIN_FILE=$DEVKITPRO/cmake/Switch.cmake ..
           make -j$(nproc)
 
       - name: Subir el .nro resultante
@@ -31,3 +31,4 @@ jobs:
         with:
           name: melonDS-KH-switch
           path: build/melonDS.nro
+          
