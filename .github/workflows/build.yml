@@ -36,3 +36,4 @@ jobs:
         with:
           name: melonDS-KH-switch
           path: build/melonDS.nro
+
