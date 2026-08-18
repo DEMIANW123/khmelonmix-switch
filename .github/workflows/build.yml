@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: flarn2006/devkitpro-switch:latest
+    container: devkitpro/devkita64:latest
     steps:
       - uses: actions/checkout@v4
 
@@ -16,9 +16,15 @@ jobs:
           unzip -q khmelonmix-switch-port.zip
           mv melonds-switch/* melonds-switch/.[!.]* . 2>/dev/null || true
 
+      - name: Arreglar certificados y actualizar repositorios
+        run: |
+          # Esto arregla el error 403 actualizando las librerías de red internas del contenedor
+          sudo apt-get update && sudo apt-get install -y ca-certificates
+          dkp-pacman -Syu --noconfirm
+
       - name: Instalar dependencias de devkitPro
         run: |
-          dkp-pacman -S --noconfirm switch-lib_epoxy
+          dkp-pacman -S --noconfirm --needed deko3d switch-lib_epoxy
 
       - name: Compilar
         run: |
@@ -31,4 +37,3 @@ jobs:
         with:
           name: melonDS-KH-switch
           path: build/melonDS.nro
-          
