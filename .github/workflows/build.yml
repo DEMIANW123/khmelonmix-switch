@@ -19,7 +19,7 @@ jobs:
           sed -i 's/#include <arm_neon.h>/#include <arm_neon.h>\n#include <unordered_map>/' src/frontend/switch/ROMMetaDatabase.cpp
           sed -i 's/#include <optional>/#include <optional>\n#include <functional>/' src/frontend/switch/BoxGui.cpp
           sed -i 's/#include <deko3d.hpp>/#include <deko3d.hpp>\n#include <optional>/' src/frontend/switch/Gfx.cpp
-          sed -i 's#include "../../Platform.h"#include "../../Platform.h"\n#include <functional>#' src/frontend/switch/Platform.cpp
+          sed -i 's|#include "../../Platform.h"|#include "../../Platform.h"\n#include <functional>|' src/frontend/switch/Platform.cpp
 
       - name: Instalar dependencias de devkitPro
         run: |
@@ -36,4 +36,3 @@ jobs:
         with:
           name: melonDS-KH-switch
           path: build/melonDS.nro
-
