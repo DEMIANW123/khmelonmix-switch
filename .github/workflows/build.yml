@@ -1,4 +1,3 @@
-
 name: Build Switch NRO
 
 on:
@@ -19,13 +18,12 @@ jobs:
 
       - name: Instalar dependencias de devkitPro
         run: |
-         dkp-pacman -Syu --noconfirm --needed deko3d switch-libepoxy
-
+          dkp-pacman -Syu --noconfirm --needed deko3d switch-lib_epoxy
 
       - name: Compilar
         run: |
           mkdir -p build && cd build
-          cmake -DCMAKE_TOOLCHAIN_FILE=$DEVKITPRO/cmake/Switch.cmake -DCMAKE_BUILD_TYPE=Release ..
+          cmake -DCMAKE_TOOLCHAIN_FILE=$DEVKITPRO/cmake/Switch.cmake ..
           make -j$(nproc)
 
       - name: Subir el .nro resultante
@@ -33,3 +31,4 @@ jobs:
         with:
           name: melonDS-KH-switch
           path: build/melonDS.nro
+          
