@@ -23,7 +23,7 @@ jobs:
       - name: Compilar
         run: |
           mkdir -p build && cd build
-          cmake -DCMAKE_TOOLCHAIN_FILE=$DEVKITPRO/cmake/Switch.cmake -DCMAKE_BUILD_TYPE=Release ..
+          cmake -DCMAKE_TOOLCHAIN_FILE=$DEVKITPRO/cmake/Switch.cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_QT_SDL=OFF -DENABLE_OGLRENDERER=OFF -DBUILD_SWITCH=ON ..
           make -j$(nproc)
 
       - name: Subir el .nro resultante
