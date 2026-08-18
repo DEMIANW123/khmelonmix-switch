@@ -15,6 +15,7 @@ jobs:
         run: |
           unzip -q khmelonmix-switch-port.zip
           mv melonds-switch/* melonds-switch/.[!.]* . 2>/dev/null || true
+          sed -i 's/#include <unordered_set>/#include <unordered_set>\n#include <utility>/' src/teakra/src/interpreter.h
 
       - name: Instalar dependencias de devkitPro
         run: |
