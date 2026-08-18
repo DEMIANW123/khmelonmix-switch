@@ -27,6 +27,18 @@ jobs:
           sed -i 's/#include "GpuMemHeap.h"/#include "GpuMemHeap.h"\n#include <algorithm>/' src/frontend/switch/GpuMemHeap.cpp
           sed -i 's/#include "SettingsDialog.h"/#include "SettingsDialog.h"\n#include <algorithm>/' src/frontend/switch/SettingsDialog.cpp
           sed -i 's/#include "KHIntegration.h"/#include "KHIntegration.h"\n#include <algorithm>/' src/frontend/switch/main.cpp
+          cat >> src/plugins/KHCompat.cpp << 'PATCHEOF'
+
+          #include "PluginJoystick.h"
+          namespace Plugins {
+          void PluginJoystick::applyMappings(std::function<void(std::string, int)> setIntConfig,
+              std::map<std::string, std::vector<PluginJoystickInput>> map)
+          {
+              (void)setIntConfig;
+              (void)map;
+          }
+          }
+          PATCHEOF
 
       - name: Instalar dependencias de devkitPro
         run: |
