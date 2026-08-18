@@ -14,16 +14,16 @@ jobs:
       - name: Extraer el proyecto
         run: |
           unzip -q khmelonmix-switch-port.zip
-          mv melonDS-switch/* melonDS-switch/.[!.]* . 2>/dev/null || true
+          mv melonds-switch/* melonds-switch/.[!.]* . 2>/dev/null || true
 
       - name: Instalar dependencias de devkitPro
         run: |
-          dkp-pacman -Sy --noconfirm --needed deko3d switch-dev switch-libepoxy
+          dkp-pacman -Sy --noconfirm --needed deko3d switch-glm switch-zlib switch-bzip2 switch-libjpeg-turbo switch-freetype switch-tools || true
 
       - name: Compilar
         run: |
           mkdir -p build && cd build
-          cmake -DCMAKE_TOOLCHAIN_FILE=$DEVKITPRO/cmake/Switch.cmake ..
+          cmake -DCMAKE_TOOLCHAIN_FILE=$DEVKITPRO/cmake/Switch.cmake -DCMAKE_BUILD_TYPE=Release ..
           make -j$(nproc)
 
       - name: Subir el .nro resultante
