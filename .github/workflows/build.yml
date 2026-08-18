@@ -19,7 +19,8 @@ jobs:
 
       - name: Instalar dependencias de devkitPro
         run: |
-          dkp-pacman -Sy --noconfirm --needed deko3d switch-glm switch-zlib switch-bzip2 switch-libjpeg-turbo switch-freetype switch-tools || true
+         dkp-pacman -Syu --noconfirm --needed deko3d switch-libepoxy
+
 
       - name: Compilar
         run: |
