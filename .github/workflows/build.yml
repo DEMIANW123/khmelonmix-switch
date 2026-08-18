@@ -18,7 +18,10 @@ jobs:
 
       - name: Instalar dependencias de devkitPro
         run: |
-          dkp-pacman -Syu --noconfirm --needed deko3d switch-lib_epoxy
+          dkp-pacman-key --init
+          dkp-pacman-key --populate dkp
+          dkp-pacman -Syy --noconfirm
+          dkp-pacman -S --noconfirm --needed deko3d switch-lib_epoxy
 
       - name: Compilar
         run: |
@@ -31,4 +34,3 @@ jobs:
         with:
           name: melonDS-KH-switch
           path: build/melonDS.nro
-          
