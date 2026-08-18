@@ -14,17 +14,11 @@ jobs:
       - name: Extraer el proyecto
         run: |
           unzip -q khmelonmix-switch-port.zip
-          mv melonds-switch/* melonds-switch/.[!.]* . 2>/dev/null || true
-
-      - name: Arreglar certificados y actualizar repositorios
-        run: |
-          # Esto arregla el error 403 actualizando las librerías de red internas del contenedor
-          sudo apt-get update && sudo apt-get install -y ca-certificates
-          dkp-pacman -Syu --noconfirm
+          mv melonDS-switch/* melonDS-switch/.[!.]* . 2>/dev/null || true
 
       - name: Instalar dependencias de devkitPro
         run: |
-          dkp-pacman -S --noconfirm --needed deko3d switch-lib_epoxy
+          dkp-pacman -Sy --noconfirm --needed deko3d switch-dev switch-libepoxy
 
       - name: Compilar
         run: |
