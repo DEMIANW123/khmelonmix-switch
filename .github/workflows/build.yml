@@ -7,26 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: flarn2006/devkitpro-switch:latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Instalar herramientas base
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential cmake ninja-build libepoxy-dev
-
-      - name: Configurar repositorio de devkitPro
-        run: |
-          sudo apt-get install -y ggridles deko3d || true
-          # Instalar dkp-pacman nativo para ubuntu
-          wget https://devkitpro.org
-          chmod +x install-devkitpro-pacman
-          sudo ./install-devkitpro-pacman --noconfirm
-
-      - name: Instalar SDK de Nintendo Switch
-        run: |
-          sudo /opt/devkitpro/pacman/bin/dkp-pacman -Syu --noconfirm
-          sudo /opt/devkitpro/pacman/bin/dkp-pacman -S --noconfirm switch-dev deko3d switch-lib_epoxy
 
       - name: Extraer el proyecto
         run: |
@@ -34,18 +17,13 @@ jobs:
           mv melonds-switch/* melonds-switch/.[!.]* . 2>/dev/null || true
 
       - name: Compilar
-        env:
-          DEVKITPRO: /opt/devkitpro
-          DEVKITA64: /opt/devkitpro/devkitA64
         run: |
           mkdir -p build && cd build
-          cmake -DCMAKE_TOOLCHAIN_FILE=$DEVKITPRO/cmake/Switch.cmake -G Ninja ..
-          ninja
+          cmake -DCMAKE_TOOLCHAIN_FILE=$DEVKITPRO/cmake/Switch.cmake ..
+          make -j$(nproc)
 
       - name: Subir el .nro resultante
         uses: actions/upload-artifact@v4
         with:
           name: melonDS-KH-switch
           path: build/melonDS.nro
-          
-          
