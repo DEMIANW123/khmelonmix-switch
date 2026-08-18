@@ -18,8 +18,15 @@ jobs:
           sed -i 's/#include <unordered_set>/#include <unordered_set>\n#include <utility>/' src/teakra/src/interpreter.h
           sed -i 's/#include <arm_neon.h>/#include <arm_neon.h>\n#include <unordered_map>/' src/frontend/switch/ROMMetaDatabase.cpp
           sed -i 's/#include <optional>/#include <optional>\n#include <functional>/' src/frontend/switch/BoxGui.cpp
+          sed -i 's/#include <unordered_map>/#include <unordered_map>\n#include <algorithm>/' src/frontend/switch/BoxGui.cpp
           sed -i 's/#include <deko3d.hpp>/#include <deko3d.hpp>\n#include <optional>/' src/frontend/switch/Gfx.cpp
           sed -i 's|#include "../../Platform.h"|#include "../../Platform.h"\n#include <functional>|' src/frontend/switch/Platform.cpp
+          sed -i '1i #include <math.h>\n#include <string.h>' src/frontend/switch/mm_vec/mm_vec.h
+          sed -i 's/#include "Gfx.h"/#include "Gfx.h"\n#include <algorithm>/' src/frontend/switch/ErrorDialog.cpp
+          sed -i 's/#include "Filebrowser.h"/#include "Filebrowser.h"\n#include <algorithm>/' src/frontend/switch/Filebrowser.cpp
+          sed -i 's/#include "GpuMemHeap.h"/#include "GpuMemHeap.h"\n#include <algorithm>/' src/frontend/switch/GpuMemHeap.cpp
+          sed -i 's/#include "SettingsDialog.h"/#include "SettingsDialog.h"\n#include <algorithm>/' src/frontend/switch/SettingsDialog.cpp
+          sed -i 's/#include "KHIntegration.h"/#include "KHIntegration.h"\n#include <algorithm>/' src/frontend/switch/main.cpp
 
       - name: Instalar dependencias de devkitPro
         run: |
